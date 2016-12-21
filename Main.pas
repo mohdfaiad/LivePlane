@@ -59,6 +59,7 @@ type
     LinkControlToFieldResMeasure: TLinkControlToField;
     ResLabelMeasure: TLabel;
     LayoutResourceEdit: TLayout;
+    ListBoxItem1: TListBoxItem;
     procedure ListBoxItemResourceClick(Sender: TObject);
     procedure ListBoxItemTargetClick(Sender: TObject);
     procedure ListBoxItemWhatNextClick(Sender: TObject);
@@ -78,6 +79,8 @@ var
 implementation
 
 {$R *.fmx}
+
+uses UnitTarget, UnitWhatNext;
 
 procedure TMainForm.SelectTabItem(TabItem: TTabItem);
 begin
@@ -129,12 +132,12 @@ end;
 
 procedure TMainForm.ListBoxItemTargetClick(Sender: TObject);
 begin
-  SelectTabItem(TabItemTarget);
+  FormTarget.Show;
 end;
 
 procedure TMainForm.ListBoxItemWhatNextClick(Sender: TObject);
 begin
-  SelectTabItem(TabItemWhatNext);
+  FormWhatNext.Show;
 end;
 
 end.

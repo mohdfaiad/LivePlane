@@ -245,7 +245,6 @@ object MainForm: TMainForm
     Size.Width = 250.000000000000000000
     Size.Height = 624.000000000000000000
     Size.PlatformDefault = False
-    Visible = False
     TabOrder = 1
     object Rectangle: TRectangle
       Align = MostTop
@@ -287,6 +286,11 @@ object MainForm: TMainForm
         TabOrder = 1
         Text = #1042#1072#1096#1080' '#1094#1077#1083#1080
         OnClick = ListBoxItemTargetClick
+      end
+      object ListBoxItem1: TListBoxItem
+        Position.Y = 57.000000000000000000
+        TabOrder = 3
+        Text = 'ListBoxItem1'
       end
     end
   end
