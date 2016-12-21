@@ -4,17 +4,21 @@ interface
 
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes,
-  System.Variants,
+  System.Variants, IOUTils,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Ani,
-  FMX.ListBox, FMX.Layouts, System.ImageList, FMX.ImgList;
+  FMX.ListBox, FMX.Layouts, System.ImageList, FMX.ImgList, FMX.StdCtrls,
+  FMX.Controls.Presentation, FMX.MultiView;
 
 type
   TFormTarget = class(TForm)
-    Layout1: TLayout;
-    ListBox1: TListBox;
-    MetropolisUIListBoxItem1: TMetropolisUIListBoxItem;
-    ListBoxGroupHeader1: TListBoxGroupHeader;
-    procedure FormCreate(Sender: TObject);
+    LayoutMain: TLayout;
+    ListBox: TListBox;
+    ToolBar: TToolBar;
+    ToolLabel: TLabel;
+    MasterButton: TSpeedButton;
+    ConfigButton: TSpeedButton;
+    MultiViewPopup: TMultiView;
+    procedure MasterButtonClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -28,11 +32,9 @@ implementation
 
 {$R *.fmx}
 
-procedure TFormTarget.FormCreate(Sender: TObject);
+procedure TFormTarget.MasterButtonClick(Sender: TObject);
 begin
-{$IFDEF ANDROID}
-  MetropolisUIListBoxItem1.Icon.LoadFromFile('.\assets\internal\android-brain.bmp');
-{$ENDIF}
+  Close;
 end;
 
 end.

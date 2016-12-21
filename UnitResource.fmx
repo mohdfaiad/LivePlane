@@ -1,7 +1,7 @@
-object FormTarget: TFormTarget
+object FormResource: TFormResource
   Left = 0
   Top = 0
-  Caption = 'Form1'
+  Caption = 'FormResource'
   ClientHeight = 630
   ClientWidth = 510
   FormFactor.Width = 320
@@ -38,7 +38,7 @@ object FormTarget: TFormTarget
         Size.Height = 48.000000000000000000
         Size.PlatformDefault = False
         StyleLookup = 'toollabel'
-        Text = #1042#1072#1096#1080' '#1094#1077#1083#1080
+        Text = #1057#1087#1080#1089#1086#1082' '#1088#1077#1089#1091#1088#1089#1086#1074
       end
       object MasterButton: TSpeedButton
         Align = MostLeft
@@ -58,14 +58,5 @@ object FormTarget: TFormTarget
         Text = 'ConfigButton'
       end
     end
-  end
-  object MultiViewPopup: TMultiView
-    MasterButton = ConfigButton
-    Mode = Popover
-    Size.Width = 201.000000000000000000
-    Size.Height = 400.000000000000000000
-    Size.PlatformDefault = False
-    Visible = False
-    TabOrder = 3
   end
 end

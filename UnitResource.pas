@@ -1,4 +1,4 @@
-unit UnitWhatNext;
+unit UnitResource;
 
 interface
 
@@ -8,17 +8,13 @@ uses
   FMX.Controls.Presentation, FMX.Layouts, FMX.ListBox;
 
 type
-  TFormWhatNext = class(TForm)
+  TFormResource = class(TForm)
     LayoutMain: TLayout;
     ListBox: TListBox;
     ToolBar: TToolBar;
     ToolLabel: TLabel;
     MasterButton: TSpeedButton;
     ConfigButton: TSpeedButton;
-    ListBoxItem1: TListBoxItem;
-    ListBoxItem2: TListBoxItem;
-    ListBoxItem3: TListBoxItem;
-    ListBoxItem4: TListBoxItem;
     procedure MasterButtonClick(Sender: TObject);
   private
     { Private declarations }
@@ -27,13 +23,13 @@ type
   end;
 
 var
-  FormWhatNext: TFormWhatNext;
+  FormResource: TFormResource;
 
 implementation
 
 {$R *.fmx}
 
-procedure TFormWhatNext.MasterButtonClick(Sender: TObject);
+procedure TFormResource.MasterButtonClick(Sender: TObject);
 begin
   Close;
 end;
