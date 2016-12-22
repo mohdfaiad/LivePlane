@@ -5,7 +5,7 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.StdCtrls,
-  FMX.Controls.Presentation, FMX.Layouts, FMX.ListBox;
+  FMX.Controls.Presentation, FMX.Layouts, FMX.ListBox, FMX.MultiView;
 
 type
   TFormWhatNext = class(TForm)
@@ -19,6 +19,7 @@ type
     ListBoxItem2: TListBoxItem;
     ListBoxItem3: TListBoxItem;
     ListBoxItem4: TListBoxItem;
+    MultiViewPopup: TMultiView;
     procedure MasterButtonClick(Sender: TObject);
   private
     { Private declarations }

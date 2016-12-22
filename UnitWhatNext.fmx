@@ -119,4 +119,13 @@ object FormWhatNext: TFormWhatNext
       end
     end
   end
+  object MultiViewPopup: TMultiView
+    MasterButton = ConfigButton
+    Mode = Popover
+    Size.Width = 201.000000000000000000
+    Size.Height = 400.000000000000000000
+    Size.PlatformDefault = False
+    Visible = False
+    TabOrder = 3
+  end
 end
