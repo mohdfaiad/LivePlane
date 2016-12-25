@@ -62,19 +62,19 @@ uses UnitTarget, UnitWhatNext, UnitResource;
 
 procedure TMainForm.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  FDTable.Active := False;
-  FDConnection.Close;
+   (*FDTable.Active := False;
+  FDConnection.Close;          *)
 end;
 
 procedure TMainForm.FormShow(Sender: TObject);
-begin
+begin    (*
 {$IFDEF ANDROID}
   FDConnection.Params.Values['Database'] := '$(DOC)/database.sqlite';
   FDTable.TableName := 'RESOURCE';
 {$ENDIF}
   FDConnection.Connected := True;
   FDTable.Open('RESOURCE');
-  FDTable.Active := True;
+  FDTable.Active := True;         *)
 end;
 
 procedure TMainForm.ListBoxItemResourceClick(Sender: TObject);

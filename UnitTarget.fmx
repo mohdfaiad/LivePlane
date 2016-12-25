@@ -60,12 +60,26 @@ object FormTarget: TFormTarget
     end
   end
   object MultiViewPopup: TMultiView
+    PopoverOptions.StyleLookup = ''
+    PopoverOptions.PopupHeight = 200.000000000000000000
     MasterButton = ConfigButton
     Mode = Popover
     Size.Width = 201.000000000000000000
-    Size.Height = 400.000000000000000000
+    Size.Height = 200.000000000000000000
     Size.PlatformDefault = False
-    Visible = False
     TabOrder = 3
+    object ListBox1: TListBox
+      Align = Client
+      Size.Width = 201.000000000000000000
+      Size.Height = 200.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      DisableFocusEffect = True
+      DefaultItemStyles.ItemStyle = ''
+      DefaultItemStyles.GroupHeaderStyle = ''
+      DefaultItemStyles.GroupFooterStyle = ''
+      Viewport.Width = 197.000000000000000000
+      Viewport.Height = 196.000000000000000000
+    end
   end
 end

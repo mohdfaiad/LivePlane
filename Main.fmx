@@ -63,6 +63,7 @@ object MainForm: TMainForm
     Size.Width = 250.000000000000000000
     Size.Height = 630.000000000000000000
     Size.PlatformDefault = False
+    Visible = False
     TabOrder = 1
     object Rectangle: TRectangle
       Align = MostTop

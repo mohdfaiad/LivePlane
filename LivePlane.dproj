@@ -319,6 +319,10 @@
             <Form>FormResource</Form>
             <FormType>fmx</FormType>
         </DCCReference>
+        <DCCReference Include="UnitResourceNew.pas">
+            <Form>FormResourceNew</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
         <None Include="database.sqlite"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>

@@ -7,6 +7,7 @@ object FormResource: TFormResource
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
+  OnShow = FormShow
   DesignerMasterStyle = 0
   object LayoutMain: TLayout
     Align = Client
@@ -56,6 +57,41 @@ object FormResource: TFormResource
         Size.PlatformDefault = False
         StyleLookup = 'detailstoolbutton'
         Text = 'ConfigButton'
+      end
+    end
+  end
+  object MultiViewPopup: TMultiView
+    PopoverOptions.StyleLookup = ''
+    PopoverOptions.PopupHeight = 200.000000000000000000
+    PopoverOptions.TintColor = claSlategray
+    MasterButton = ConfigButton
+    Mode = Popover
+    Size.Width = 257.000000000000000000
+    Size.Height = 200.000000000000000000
+    Size.PlatformDefault = False
+    Visible = False
+    TabOrder = 2
+    object ListBoxCommand: TListBox
+      Align = Client
+      Size.Width = 257.000000000000000000
+      Size.Height = 200.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      DisableFocusEffect = True
+      DefaultItemStyles.ItemStyle = ''
+      DefaultItemStyles.GroupHeaderStyle = ''
+      DefaultItemStyles.GroupFooterStyle = ''
+      Viewport.Width = 253.000000000000000000
+      Viewport.Height = 196.000000000000000000
+      object ListBoxItemAdd: TListBoxItem
+        TabOrder = 0
+        Text = #1044#1086#1073#1072#1074#1080#1090#1100
+        OnClick = ListBoxItemAddClick
+      end
+      object ListBoxItemDelete: TListBoxItem
+        Position.Y = 19.000000000000000000
+        TabOrder = 1
+        Text = #1059#1076#1072#1083#1080#1090#1100
       end
     end
   end

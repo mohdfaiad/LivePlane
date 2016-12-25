@@ -18,6 +18,7 @@ type
     MasterButton: TSpeedButton;
     ConfigButton: TSpeedButton;
     MultiViewPopup: TMultiView;
+    ListBox1: TListBox;
     procedure MasterButtonClick(Sender: TObject);
   private
     { Private declarations }
