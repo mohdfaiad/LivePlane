@@ -44,7 +44,7 @@ object FormResourceNew: TFormResourceNew
         OnClick = ConfigButtonClick
       end
     end
-    object Edit1: TEdit
+    object EditName: TEdit
       Touch.InteractiveGestures = [LongTap, DoubleTap]
       Align = Top
       TabOrder = 3
@@ -82,7 +82,7 @@ object FormResourceNew: TFormResourceNew
       Size.PlatformDefault = False
       Text = #1045#1076#1080#1085#1080#1094#1072' '#1080#1079#1084#1077#1088#1077#1085#1080#1103
     end
-    object Edit2: TEdit
+    object EditMeasure: TEdit
       Touch.InteractiveGestures = [LongTap, DoubleTap]
       Align = Top
       TabOrder = 2
@@ -95,7 +95,7 @@ object FormResourceNew: TFormResourceNew
       Size.Height = 22.000000000000000000
       Size.PlatformDefault = False
     end
-    object Edit3: TEdit
+    object EditStartValue: TEdit
       Touch.InteractiveGestures = [LongTap, DoubleTap]
       Align = Top
       TabOrder = 1

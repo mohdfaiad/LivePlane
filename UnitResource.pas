@@ -33,6 +33,7 @@ type
     { Private declarations }
   public
     { Public declarations }
+    procedure Update;
   end;
 
 var
@@ -60,6 +61,11 @@ end;
 procedure TFormResource.MasterButtonClick(Sender: TObject);
 begin
   Close;
+end;
+
+procedure TFormResource.Update;
+begin
+
 end;
 
 end.

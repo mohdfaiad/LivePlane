@@ -17,7 +17,7 @@ uses
   System.Rtti, FMX.Bind.Grid, System.Bindings.Outputs, FMX.Bind.Editors,
   Data.Bind.Controls, Data.Bind.EngExt, FMX.Bind.DBEngExt, Data.Bind.Components,
   FMX.Bind.Navigator, Data.Bind.Grid, FMX.Grid, Data.Bind.DBScope,
-  FireDAC.Comp.DataSet, Engine, FMX.Edit, FMX.Grid.Style, FMX.ScrollBox;
+  FireDAC.Comp.DataSet, Engine, FMX.Edit, FMX.ScrollBox;
 
 type
   TMainForm = class(TForm)
