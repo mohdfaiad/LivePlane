@@ -3,7 +3,7 @@ object FormResource: TFormResource
   Top = 0
   Caption = 'FormResource'
   ClientHeight = 630
-  ClientWidth = 510
+  ClientWidth = 523
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
@@ -11,31 +11,32 @@ object FormResource: TFormResource
   DesignerMasterStyle = 0
   object LayoutMain: TLayout
     Align = Client
-    Size.Width = 510.000000000000000000
+    Size.Width = 523.000000000000000000
     Size.Height = 630.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 0
     object ListBox: TListBox
       Align = Client
-      Size.Width = 510.000000000000000000
+      Size.Width = 523.000000000000000000
       Size.Height = 582.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 1
       DisableFocusEffect = True
+      Images = MainForm.ImageList
       DefaultItemStyles.ItemStyle = ''
       DefaultItemStyles.GroupHeaderStyle = ''
       DefaultItemStyles.GroupFooterStyle = ''
-      Viewport.Width = 506.000000000000000000
+      Viewport.Width = 519.000000000000000000
       Viewport.Height = 578.000000000000000000
     end
     object ToolBar: TToolBar
-      Size.Width = 510.000000000000000000
+      Size.Width = 523.000000000000000000
       Size.Height = 48.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 0
       object ToolLabel: TLabel
         Align = Client
-        Size.Width = 414.000000000000000000
+        Size.Width = 427.000000000000000000
         Size.Height = 48.000000000000000000
         Size.PlatformDefault = False
         StyleLookup = 'toollabel'
@@ -51,7 +52,7 @@ object FormResource: TFormResource
       end
       object ConfigButton: TSpeedButton
         Align = MostRight
-        Position.X = 462.000000000000000000
+        Position.X = 475.000000000000000000
         Size.Width = 48.000000000000000000
         Size.Height = 48.000000000000000000
         Size.PlatformDefault = False
@@ -66,32 +67,38 @@ object FormResource: TFormResource
     PopoverOptions.TintColor = claSlategray
     MasterButton = ConfigButton
     Mode = Popover
-    Size.Width = 257.000000000000000000
+    Size.Width = 217.000000000000000000
     Size.Height = 200.000000000000000000
     Size.PlatformDefault = False
-    Visible = False
     TabOrder = 2
     object ListBoxCommand: TListBox
       Align = Client
-      Size.Width = 257.000000000000000000
-      Size.Height = 200.000000000000000000
+      Size.Width = 217.000000000000000000
+      Size.Height = 65.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 0
       DisableFocusEffect = True
       DefaultItemStyles.ItemStyle = ''
       DefaultItemStyles.GroupHeaderStyle = ''
       DefaultItemStyles.GroupFooterStyle = ''
-      Viewport.Width = 253.000000000000000000
-      Viewport.Height = 196.000000000000000000
+      Viewport.Width = 213.000000000000000000
+      Viewport.Height = 61.000000000000000000
       object ListBoxItemAdd: TListBoxItem
         TabOrder = 0
         Text = #1044#1086#1073#1072#1074#1080#1090#1100
         OnClick = ListBoxItemAddClick
       end
-      object ListBoxItemDelete: TListBoxItem
+      object ListBoxItemSelected: TListBoxItem
         Position.Y = 19.000000000000000000
+        TabOrder = 2
+        Text = #1042#1099#1076#1077#1083#1080#1090#1100
+        OnClick = ListBoxItemSelectedClick
+      end
+      object ListBoxItemDelete: TListBoxItem
+        Position.Y = 38.000000000000000000
         TabOrder = 1
         Text = #1059#1076#1072#1083#1080#1090#1100
+        OnClick = ListBoxItemDeleteClick
       end
     end
   end

@@ -35,10 +35,9 @@ type
     ListBoxItemWhatNext: TListBoxItem;
     MultiViewPopup: TMultiView;
     FDConnection: TFDConnection;
-    FDTable: TFDTable;
-    BindSourceDB: TBindSourceDB;
     BindingsList: TBindingsList;
     ListBoxItemNotes: TListBoxItem;
+    FDQuery: TFDQuery;
     procedure ListBoxItemTargetClick(Sender: TObject);
     procedure ListBoxItemWhatNextClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -62,19 +61,21 @@ uses UnitTarget, UnitWhatNext, UnitResource;
 
 procedure TMainForm.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-   (*FDTable.Active := False;
-  FDConnection.Close;          *)
+  FDQuery.Close;
+  FDQuery.Active := False;
+  FDConnection.Close;
 end;
 
 procedure TMainForm.FormShow(Sender: TObject);
-begin    (*
+begin
 {$IFDEF ANDROID}
   FDConnection.Params.Values['Database'] := '$(DOC)/database.sqlite';
-  FDTable.TableName := 'RESOURCE';
+{$ELSE}
+  FDConnection.Params.Values['Database'] := ExtractFilePath(ParamStr(0)) +
+    'assets\internal\database.sqlite';
 {$ENDIF}
+  FDConnection.DriverName := 'SQLite';
   FDConnection.Connected := True;
-  FDTable.Open('RESOURCE');
-  FDTable.Active := True;         *)
 end;
 
 procedure TMainForm.ListBoxItemResourceClick(Sender: TObject);

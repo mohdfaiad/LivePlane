@@ -873,26 +873,17 @@ object MainForm: TMainForm
     Left = 144
     Top = 296
   end
-  object FDTable: TFDTable
-    IndexFieldNames = 'ID'
-    MasterFields = 'id'
-    Connection = FDConnection
-    FormatOptions.AssignedValues = [fvDefaultParamDataType, fvCheckPrecision]
-    UpdateOptions.UpdateTableName = 'RESOURCE'
-    TableName = 'RESOURCE'
-    Left = 336
-    Top = 296
-  end
-  object BindSourceDB: TBindSourceDB
-    DataSet = FDTable
-    ScopeMappings = <>
-    Left = 240
-    Top = 296
-  end
   object BindingsList: TBindingsList
     Methods = <>
     OutputConverters = <>
     Left = 20
     Top = 5
+  end
+  object FDQuery: TFDQuery
+    Connection = FDConnection
+    SQL.Strings = (
+      'SELECT ID FROM RESOURCE')
+    Left = 224
+    Top = 296
   end
 end

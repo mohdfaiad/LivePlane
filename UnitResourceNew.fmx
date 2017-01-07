@@ -33,6 +33,7 @@ object FormResourceNew: TFormResourceNew
         Size.Height = 48.000000000000000000
         Size.PlatformDefault = False
         StyleLookup = 'arrowlefttoolbutton'
+        OnClick = MasterButtonClick
       end
       object ConfigButton: TSpeedButton
         Align = MostRight
@@ -47,7 +48,7 @@ object FormResourceNew: TFormResourceNew
     object EditName: TEdit
       Touch.InteractiveGestures = [LongTap, DoubleTap]
       Align = Top
-      TabOrder = 3
+      TabOrder = 4
       Position.X = 10.000000000000000000
       Position.Y = 74.000000000000000000
       Margins.Left = 10.000000000000000000
@@ -85,7 +86,7 @@ object FormResourceNew: TFormResourceNew
     object EditMeasure: TEdit
       Touch.InteractiveGestures = [LongTap, DoubleTap]
       Align = Top
-      TabOrder = 2
+      TabOrder = 3
       Position.X = 10.000000000000000000
       Position.Y = 122.000000000000000000
       Margins.Left = 10.000000000000000000
@@ -98,7 +99,8 @@ object FormResourceNew: TFormResourceNew
     object EditStartValue: TEdit
       Touch.InteractiveGestures = [LongTap, DoubleTap]
       Align = Top
-      TabOrder = 1
+      TabOrder = 2
+      Text = '0'
       Position.X = 10.000000000000000000
       Position.Y = 170.000000000000000000
       Margins.Left = 10.000000000000000000
@@ -120,23 +122,108 @@ object FormResourceNew: TFormResourceNew
       Size.PlatformDefault = False
       Text = #1053#1072#1095#1072#1083#1100#1085#1086#1077' '#1079#1085#1072#1095#1077#1085#1080#1077
     end
-  end
-  object FDQuery: TFDQuery
-    Connection = FDConnection
-    SQL.Strings = (
-      'SELECT * FROM RESOURCE')
-    Left = 248
-    Top = 296
-  end
-  object FDConnection: TFDConnection
-    ConnectionName = './assets/internal/database.sqlite'
-    Params.Strings = (
-      'DriverID=SQLite')
-    ResourceOptions.AssignedValues = [rvAutoReconnect]
-    ResourceOptions.AutoReconnect = True
-    Connected = True
-    LoginPrompt = False
-    Left = 248
-    Top = 232
+    object Label4: TLabel
+      Align = Top
+      AutoSize = True
+      Margins.Left = 10.000000000000000000
+      Margins.Right = 10.000000000000000000
+      Position.X = 10.000000000000000000
+      Position.Y = 202.000000000000000000
+      Size.Width = 490.000000000000000000
+      Size.Height = 16.000000000000000000
+      Size.PlatformDefault = False
+      Text = #1044#1077#1090#1072#1083#1100#1085#1086#1077' '#1086#1087#1080#1089#1072#1085#1080#1077
+    end
+    object EditDetail: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      Align = Top
+      TabOrder = 1
+      Position.X = 10.000000000000000000
+      Position.Y = 218.000000000000000000
+      Margins.Left = 10.000000000000000000
+      Margins.Right = 10.000000000000000000
+      Margins.Bottom = 10.000000000000000000
+      Size.Width = 490.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object Label5: TLabel
+      Align = Top
+      AutoSize = True
+      Margins.Left = 10.000000000000000000
+      Margins.Right = 10.000000000000000000
+      Position.X = 10.000000000000000000
+      Position.Y = 250.000000000000000000
+      Size.Width = 490.000000000000000000
+      Size.Height = 16.000000000000000000
+      Size.PlatformDefault = False
+      Text = #1048#1079#1086#1073#1088#1072#1078#1077#1085#1080#1077' '#1088#1077#1089#1091#1088#1089#1072
+    end
+    object ListBox: TListBox
+      Align = Client
+      Margins.Left = 10.000000000000000000
+      Margins.Top = 10.000000000000000000
+      Margins.Right = 10.000000000000000000
+      Margins.Bottom = 10.000000000000000000
+      Size.Width = 490.000000000000000000
+      Size.Height = 344.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 7
+      DisableFocusEffect = True
+      ItemHeight = 32.000000000000000000
+      Images = MainForm.ImageList
+      DefaultItemStyles.ItemStyle = ''
+      DefaultItemStyles.GroupHeaderStyle = ''
+      DefaultItemStyles.GroupFooterStyle = ''
+      ShowCheckboxes = True
+      OnChangeCheck = ListBoxChangeCheck
+      OnItemClick = ListBoxItemClick
+      Viewport.Width = 486.000000000000000000
+      Viewport.Height = 340.000000000000000000
+      object ListBoxItem1: TListBoxItem
+        ImageIndex = 0
+        Size.Width = 486.000000000000000000
+        Size.Height = 32.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        Text = 'Brain'
+      end
+      object ListBoxItem2: TListBoxItem
+        ImageIndex = 1
+        Position.Y = 32.000000000000000000
+        Size.Width = 486.000000000000000000
+        Size.Height = 32.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 1
+        Text = 'Calendar'
+      end
+      object ListBoxItem3: TListBoxItem
+        ImageIndex = 2
+        Position.Y = 64.000000000000000000
+        Size.Width = 486.000000000000000000
+        Size.Height = 32.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 2
+        Text = 'Notes'
+      end
+      object ListBoxItem4: TListBoxItem
+        ImageIndex = 3
+        Position.Y = 96.000000000000000000
+        Size.Width = 486.000000000000000000
+        Size.Height = 32.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 3
+        Text = 'Plane'
+      end
+      object ListBoxItem5: TListBoxItem
+        ImageIndex = 4
+        Position.Y = 128.000000000000000000
+        Size.Width = 486.000000000000000000
+        Size.Height = 32.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 4
+        Text = 'Target'
+      end
+    end
   end
 end

@@ -40,16 +40,9 @@ Coordinates=386,232,53,33
 [ListBoxItemResource]
 Coordinates=239,232,120,33
 
-[FDTable]
-Coordinates=276,10,54,33
-Visible=False
-
 []
-Coordinates=300,346,69,33
-Visible=False
-
-[BindSourceDB]
 Coordinates=850,150,87,159
+Visible=False
 LayerNames=Resource
 
 [BindingsList]
