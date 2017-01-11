@@ -70,11 +70,12 @@ object FormResource: TFormResource
     Size.Width = 217.000000000000000000
     Size.Height = 200.000000000000000000
     Size.PlatformDefault = False
+    Visible = False
     TabOrder = 2
     object ListBoxCommand: TListBox
       Align = Client
       Size.Width = 217.000000000000000000
-      Size.Height = 65.000000000000000000
+      Size.Height = 200.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 0
       DisableFocusEffect = True
@@ -82,7 +83,7 @@ object FormResource: TFormResource
       DefaultItemStyles.GroupHeaderStyle = ''
       DefaultItemStyles.GroupFooterStyle = ''
       Viewport.Width = 213.000000000000000000
-      Viewport.Height = 61.000000000000000000
+      Viewport.Height = 196.000000000000000000
       object ListBoxItemAdd: TListBoxItem
         TabOrder = 0
         Text = #1044#1086#1073#1072#1074#1080#1090#1100

@@ -876,14 +876,21 @@ object MainForm: TMainForm
   object BindingsList: TBindingsList
     Methods = <>
     OutputConverters = <>
-    Left = 20
-    Top = 5
+    Left = 52
+    Top = 373
   end
   object FDQuery: TFDQuery
     Connection = FDConnection
+    Transaction = FDTransaction
+    UpdateTransaction = FDTransaction
     SQL.Strings = (
       'SELECT ID FROM RESOURCE')
     Left = 224
+    Top = 296
+  end
+  object FDTransaction: TFDTransaction
+    Connection = FDConnection
+    Left = 304
     Top = 296
   end
 end

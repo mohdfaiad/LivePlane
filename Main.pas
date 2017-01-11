@@ -38,6 +38,7 @@ type
     BindingsList: TBindingsList;
     ListBoxItemNotes: TListBoxItem;
     FDQuery: TFDQuery;
+    FDTransaction: TFDTransaction;
     procedure ListBoxItemTargetClick(Sender: TObject);
     procedure ListBoxItemWhatNextClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -45,7 +46,6 @@ type
     procedure ListBoxItemResourceClick(Sender: TObject);
   private
     { Private declarations }
-    fResources: TResources;
   public
     { Public declarations }
   end;

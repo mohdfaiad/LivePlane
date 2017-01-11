@@ -91,13 +91,16 @@ procedure TFormResource.Remove(Index: Integer);
 begin
   With MainForm do
   begin
-    ShowMessage(IntToStr(FDConnection.ExecSQL('DELETE FROM RESOURCE WHERE ID = ' + IntToStr(Index))));
+    FDQuery.Open(Format('SELECT * FROM RESOURCE WHERE ID = %d', [Index]));
+    while not FDQuery.Eof do
+    begin
+      FDQuery.Next;
+    end;
   end;
 end;
 
 procedure TFormResource.Update;
 var
-  MaxIndex: Integer;
   Item: TListBoxItem;
 begin
   ListBox.ShowCheckboxes := False;
@@ -119,8 +122,7 @@ begin
       if not FDQuery.FieldByName('NAME').IsNull then
         Item.ItemData.Text := FDQuery.FieldByName('NAME').AsString;
       if not FDQuery.FieldByName('MEASURE').IsNull then
-        Item.ItemData.Text := Item.ItemData.Text + ' (' + FDQuery.FieldByName('MEASURE')
-          .AsString + ')';
+        Item.ItemData.Text := Item.ItemData.Text + ' (' + FDQuery.FieldByName('MEASURE').AsString + ')';
       if not FDQuery.FieldByName('detail').IsNull then
         Item.ItemData.Detail := FDQuery.FieldByName('detail').AsString;
       if not FDQuery.FieldByName('ICON').IsNull then
