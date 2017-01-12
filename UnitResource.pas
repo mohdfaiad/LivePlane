@@ -37,7 +37,7 @@ type
   public
     { Public declarations }
     procedure Update;
-    procedure Remove(Index: Integer);
+    procedure Remove(AIndex: Integer);
   end;
 
 var
@@ -87,15 +87,16 @@ begin
   Close;
 end;
 
-procedure TFormResource.Remove(Index: Integer);
+procedure TFormResource.Remove(AIndex: Integer);
+var
+  Buffer: String;
 begin
   With MainForm do
   begin
-    FDQuery.Open(Format('SELECT * FROM RESOURCE WHERE ID = %d', [Index]));
-    while not FDQuery.Eof do
-    begin
-      FDQuery.Next;
-    end;
+    FDQuery.Close;
+    Buffer := Format('DELETE FROM RESOURCE WHERE ID = %d', [AIndex]);
+    FDQuery.SQL.Text := Buffer;
+    FDQuery.ExecSQL();
   end;
 end;
 
@@ -127,7 +128,6 @@ begin
         Item.ItemData.Detail := FDQuery.FieldByName('detail').AsString;
       if not FDQuery.FieldByName('ICON').IsNull then
         Item.ImageIndex := FDQuery.FieldByName('ICON').AsInteger;
-
       FDQuery.Next;
     end;
     FDQuery.Close;

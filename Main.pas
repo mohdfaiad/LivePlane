@@ -72,7 +72,7 @@ begin
   FDConnection.Params.Values['Database'] := '$(DOC)/database.sqlite';
 {$ELSE}
   FDConnection.Params.Values['Database'] := ExtractFilePath(ParamStr(0)) +
-    'assets\internal\database.sqlite';
+    'database.sqlite';
 {$ENDIF}
   FDConnection.DriverName := 'SQLite';
   FDConnection.Connected := True;
