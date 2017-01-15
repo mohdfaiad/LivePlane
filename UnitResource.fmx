@@ -70,7 +70,6 @@ object FormResource: TFormResource
     Size.Width = 217.000000000000000000
     Size.Height = 200.000000000000000000
     Size.PlatformDefault = False
-    Visible = False
     TabOrder = 2
     object ListBoxCommand: TListBox
       Align = Client

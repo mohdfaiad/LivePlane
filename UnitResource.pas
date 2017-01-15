@@ -33,6 +33,7 @@ type
     procedure ListBoxItemSelectedClick(Sender: TObject);
     procedure ListBoxItemDeleteClick(Sender: TObject);
   private
+    procedure OnClick(Sender: TObject);
     { Private declarations }
   public
     { Public declarations }
@@ -87,6 +88,39 @@ begin
   Close;
 end;
 
+procedure TFormResource.OnClick(Sender: TObject);
+begin
+  if not (Sender is TListBoxItem) then
+    Exit;
+
+  // ListBox.ShowCheckboxes := False;
+
+  FormResourceNew.Clear;
+  FormResourceNew.EditMode;
+
+  With MainForm do
+  begin
+    FDQuery.Open('SELECT * FROM RESOURCE WHERE ID = ' + IntToStr(TListBoxItem(Sender).Tag));
+    while not FDQuery.Eof do
+    begin
+      if not FDQuery.FieldByName('NAME').IsNull then
+        FormResourceNew.EditName.Text := FDQuery.FieldByName('NAME').AsString;
+      if not FDQuery.FieldByName('MEASURE').IsNull then
+        FormResourceNew.EditMeasure.Text := FDQuery.FieldByName('MEASURE').AsString;
+      if not FDQuery.FieldByName('DETAIL').IsNull then
+        FormResourceNew.EditDetail.Text := FDQuery.FieldByName('detail').AsString;
+      {
+        if not FDQuery.FieldByName('ICON').IsNull then
+        FormResourceNew.ListBox. := FDQuery.FieldByName('ICON').AsInteger;
+      }
+      FDQuery.Next;
+    end;
+    FDQuery.Close;
+  end;
+
+  FormResourceNew.Show;
+end;
+
 procedure TFormResource.Remove(AIndex: Integer);
 var
   Buffer: String;
@@ -118,12 +152,14 @@ begin
       Item.TextSettings.WordWrap := True;
       Item.TextSettings.FontColor := TAlphaColorRec.Teal;
       Item.StyleLookup := 'listboxitembottomdetail';
+      Item.OnClick := OnClick;
       if not FDQuery.FieldByName('ID').IsNull then
         Item.Tag := FDQuery.FieldByName('ID').AsInteger;
       if not FDQuery.FieldByName('NAME').IsNull then
         Item.ItemData.Text := FDQuery.FieldByName('NAME').AsString;
       if not FDQuery.FieldByName('MEASURE').IsNull then
-        Item.ItemData.Text := Item.ItemData.Text + ' (' + FDQuery.FieldByName('MEASURE').AsString + ')';
+        Item.ItemData.Text := Item.ItemData.Text + ' (' + FDQuery.FieldByName('MEASURE')
+          .AsString + ')';
       if not FDQuery.FieldByName('detail').IsNull then
         Item.ItemData.Detail := FDQuery.FieldByName('detail').AsString;
       if not FDQuery.FieldByName('ICON').IsNull then

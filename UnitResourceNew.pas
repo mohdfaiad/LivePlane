@@ -45,6 +45,7 @@ type
     LastImageIndex: Integer;
   public
     procedure Clear;
+    procedure EditMode;
   end;
 
 var
@@ -123,6 +124,11 @@ begin
   end;
   FormResource.Update;
   Close;
+end;
+
+procedure TFormResourceNew.EditMode;
+begin
+  ToolLabel.Text := 'Редактирование ресурса';
 end;
 
 procedure TFormResourceNew.ListBoxChangeCheck(Sender: TObject);
