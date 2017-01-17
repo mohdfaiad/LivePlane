@@ -60,6 +60,7 @@ end;
 procedure TFormResource.ListBoxItemAddClick(Sender: TObject);
 begin
   MultiViewPopup.HideMaster;
+  FormResourceNew.CreateMode;
   FormResourceNew.Clear;
   FormResourceNew.Show;
 end;
@@ -90,13 +91,11 @@ end;
 
 procedure TFormResource.OnClick(Sender: TObject);
 begin
-  if not (Sender is TListBoxItem) then
+  if not(Sender is TListBoxItem) then
     Exit;
 
-  // ListBox.ShowCheckboxes := False;
-
   FormResourceNew.Clear;
-  FormResourceNew.EditMode;
+  FormResourceNew.EditMode(TListBoxItem(Sender).Tag);
 
   With MainForm do
   begin
@@ -109,10 +108,13 @@ begin
         FormResourceNew.EditMeasure.Text := FDQuery.FieldByName('MEASURE').AsString;
       if not FDQuery.FieldByName('DETAIL').IsNull then
         FormResourceNew.EditDetail.Text := FDQuery.FieldByName('detail').AsString;
-      {
-        if not FDQuery.FieldByName('ICON').IsNull then
-        FormResourceNew.ListBox. := FDQuery.FieldByName('ICON').AsInteger;
-      }
+      if not FDQuery.FieldByName('STARTVALUE').IsNull then
+        FormResourceNew.EditStartValue.Text := FDQuery.FieldByName('STARTVALUE').AsString;
+      if not FDQuery.FieldByName('ICON').IsNull then
+      begin
+        FormResourceNew.ListBox.ItemIndex := FDQuery.FieldByName('ICON').AsInteger;
+        FormResourceNew.ListBox.Selected.IsChecked := True;
+      end;
       FDQuery.Next;
     end;
     FDQuery.Close;
