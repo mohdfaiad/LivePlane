@@ -161,6 +161,7 @@ begin
 end;
 
 function TFormResourceNew.GetIconIndex: Integer;
+// Получаем выбранную иконку
 var
   I: Integer;
 begin
@@ -171,6 +172,7 @@ begin
 end;
 
 procedure TFormResourceNew.ListBoxChangeCheck(Sender: TObject);
+// Разрешаем выбор только одного элемента в списке
 var
   I, ItemIndex: Integer;
 begin
