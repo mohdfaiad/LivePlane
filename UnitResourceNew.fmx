@@ -176,6 +176,7 @@ object FormResourceNew: TFormResourceNew
       DefaultItemStyles.GroupHeaderStyle = ''
       DefaultItemStyles.GroupFooterStyle = ''
       ShowCheckboxes = True
+      OnChangeCheck = ListBoxChangeCheck
       OnItemClick = ListBoxItemClick
       Viewport.Width = 486.000000000000000000
       Viewport.Height = 340.000000000000000000

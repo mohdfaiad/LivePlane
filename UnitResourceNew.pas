@@ -41,6 +41,7 @@ type
     procedure ConfigButtonClick(Sender: TObject);
     procedure ListBoxItemClick(const Sender: TCustomListBox; const Item: TListBoxItem);
     procedure MasterButtonClick(Sender: TObject);
+    procedure ListBoxChangeCheck(Sender: TObject);
   private
     { Private declarations }
     fSelectedID: Integer;
@@ -56,6 +57,7 @@ type
 
 var
   FormResourceNew: TFormResourceNew;
+  CheckCrit: Boolean = false;
 
 implementation
 
@@ -72,7 +74,7 @@ var
 begin
   for I := 0 to ComponentCount - 1 do
     if (Components[I] is TListBoxItem) then
-      TListBoxItem(Components[I]).IsChecked := False;
+      TListBoxItem(Components[I]).IsChecked := false;
   EditName.Text := '';
   EditMeasure.Text := '';
   EditStartValue.Text := '';
@@ -125,8 +127,7 @@ begin
     end;
     // Записываем
     try
-      FDQuery.SQL.Text :=
-        'INSERT INTO RESOURCE VALUES (:rid, :name, :measure, :detail, :startvalue, :icon)';
+      FDQuery.SQL.Text := 'INSERT INTO RESOURCE VALUES (:rid, :name, :measure, :detail, :startvalue, :icon)';
       FDQuery.ParamByName('rid').DataType := TFieldType.ftInteger;
       FDQuery.ParamByName('rid').AsInteger := MaxIndex + 1;
       FDQuery.ParamByName('name').DataType := TFieldType.ftString;
@@ -169,13 +170,29 @@ begin
       Exit(I);
 end;
 
+procedure TFormResourceNew.ListBoxChangeCheck(Sender: TObject);
+var
+  I, ItemIndex: Integer;
+begin
+  if CheckCrit then
+    Exit;
+  CheckCrit := True;
+  ItemIndex := ListBox.ItemIndex;
+
+  for I := 0 to ListBox.Count - 1 do
+    ListBox.ListItems[I].IsChecked := false;
+
+  ListBox.ListItems[ItemIndex].IsChecked := True;
+  CheckCrit := false;
+end;
+
 procedure TFormResourceNew.ListBoxItemClick(const Sender: TCustomListBox; const Item: TListBoxItem);
 var
   I: Integer;
 begin
   for I := 0 to ComponentCount - 1 do
     if (Components[I] is TListBoxItem) and (TListBoxItem(Components[I]) <> Item) then
-      TListBoxItem(Components[I]).IsChecked := False;
+      TListBoxItem(Components[I]).IsChecked := false;
   Item.IsChecked := True;
 end;
 
@@ -213,8 +230,7 @@ begin
     end;
     // Записываем
     try
-      FDQuery.SQL.Text :=
-        'UPDATE RESOURCE SET NAME = :aname, MEASURE = :ameasure, DETAIL = :adetail,' +
+      FDQuery.SQL.Text := 'UPDATE RESOURCE SET NAME = :aname, MEASURE = :ameasure, DETAIL = :adetail,' +
         'STARTVALUE = :astartvalue, ICON = :aicon WHERE ID = :aid';
 
       FDQuery.ParamByName('aname').DataType := TFieldType.ftString;
