@@ -149,6 +149,13 @@ begin
   end;
   FormResource.Update;
   Close;
+
+  {
+    fConnection.ExecSQL('PRAGMA foreign_keys=ON');
+    fConnection.ExecSQL('create table if not exists tblFilms (ID INTEGER PRIMARY KEY AUTOINCREMENT, Title_Ru TEXT, Title TEXT, Year INT, Kinopoisk TEXT);');
+    fConnection.ExecSQL('create table if not exists tblLists (ID INTEGER PRIMARY KEY AUTOINCREMENT, Title TEXT);');
+    fConnection.ExecSQL('create table if not exists tblFL (ID_Film INTEGER NOT NULL REFERENCES tblFilms(ID) ON DELETE CASCADE,  ID_List INTEGER NOT NULL REFERENCES tblLists(ID) ON DELETE CASCADE);');
+  }
 end;
 
 procedure TFormResourceNew.EditMode(AID: Integer);
