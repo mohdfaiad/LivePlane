@@ -127,8 +127,8 @@ begin
     end;
     // Записываем
     try
+      FDQuery.execsql('PRAGMA foreign_keys=ON');
       FDQuery.SQL.Text := 'INSERT INTO RESOURCE VALUES (:rid, :name, :measure, :detail, :startvalue, :icon)';
-      FDQuery.ParamByName('rid').DataType := TFieldType.ftInteger;
       FDQuery.ParamByName('rid').AsInteger := MaxIndex + 1;
       FDQuery.ParamByName('name').DataType := TFieldType.ftString;
       FDQuery.ParamByName('name').AsString := EditName.Text;
@@ -142,7 +142,7 @@ begin
       FDQuery.ParamByName('icon').AsInteger := GetIconIndex;
       if not FDQuery.Prepared then
         FDQuery.Prepare;
-      FDQuery.ExecSQL();
+      FDQuery.execsql();
     finally
       FDQuery.Close;
     end;
@@ -256,7 +256,7 @@ begin
       FDQuery.ParamByName('aid').AsInteger := fSelectedID;
       if not FDQuery.Prepared then
         FDQuery.Prepare;
-      FDQuery.ExecSQL();
+      FDQuery.execsql();
     finally
       FDQuery.Close;
     end;

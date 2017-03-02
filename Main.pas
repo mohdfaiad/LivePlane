@@ -76,6 +76,7 @@ begin
 {$ENDIF}
   FDConnection.DriverName := 'SQLite';
   FDConnection.Connected := True;
+  FDConnection.ExecSQL('PRAGMA foreign_keys=ON');
 end;
 
 procedure TMainForm.ListBoxItemResourceClick(Sender: TObject);
