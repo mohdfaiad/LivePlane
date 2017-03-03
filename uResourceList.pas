@@ -1,4 +1,4 @@
-unit UnitResource;
+unit uResourceList;
 
 interface
 
@@ -47,7 +47,7 @@ var
 implementation
 
 uses
-  Main, UnitResourceNew;
+  uMain, uResourceNew;
 
 {$R *.fmx}
 

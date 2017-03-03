@@ -3,12 +3,14 @@ program LivePlane;
 uses
   System.StartUpCopy,
   FMX.Forms,
-  Main in 'Main.pas' {MainForm},
+  uMain in 'uMain.pas' {MainForm},
   Engine in 'Engine.pas',
-  UnitTarget in 'UnitTarget.pas' {FormTarget},
-  UnitWhatNext in 'UnitWhatNext.pas' {FormWhatNext},
-  UnitResource in 'UnitResource.pas' {FormResource},
-  UnitResourceNew in 'UnitResourceNew.pas' {FormResourceNew};
+  UTargetList in 'UTargetList.pas' {FormTarget},
+  UWhatNext in 'UWhatNext.pas' {FormWhatNext},
+  UResourceList in 'UResourceList.pas' {FormResource},
+  UResourceNew in 'UResourceNew.pas' {FormResourceNew},
+  UTargetNew in 'UTargetNew.pas' {TFormTargetNew},
+  UTaskList in 'UTaskList.pas' {TFormTaskList};
 
 {$R *.res}
 
@@ -19,5 +21,7 @@ begin
   Application.CreateForm(TFormWhatNext, FormWhatNext);
   Application.CreateForm(TFormResource, FormResource);
   Application.CreateForm(TFormResourceNew, FormResourceNew);
+  Application.CreateForm(TTFormTargetNew, TFormTargetNew);
+  Application.CreateForm(TTFormTaskList, TFormTaskList);
   Application.Run;
 end.

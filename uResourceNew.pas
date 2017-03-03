@@ -1,4 +1,4 @@
-unit UnitResourceNew;
+unit uResourceNew;
 
 interface
 
@@ -62,7 +62,7 @@ var
 implementation
 
 uses
-  Main, UnitResource;
+  uMain, uResourceList;
 
 {$R *.fmx}
 { TFormResourceNew }

@@ -1,4 +1,4 @@
-unit UnitTarget;
+unit uTargetList;
 
 interface
 
@@ -22,7 +22,6 @@ type
     ListBoxItemAdd: TListBoxItem;
     ListBoxItemSelected: TListBoxItem;
     ListBoxItemDelete: TListBoxItem;
-    ListBoxItem1: TListBoxItem;
     procedure MasterButtonClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
@@ -38,7 +37,7 @@ var
 implementation
 
 uses
-  Main;
+  uMain;
 
 {$R *.fmx}
 

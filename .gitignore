@@ -63,6 +63,7 @@ __recovery/
 *.~*
 Android/
 Win64
+Win32
 *.sql
 
 

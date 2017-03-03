@@ -1,4 +1,4 @@
-unit Main;
+unit uMain;
 
 interface
 
@@ -57,7 +57,7 @@ implementation
 
 {$R *.fmx}
 
-uses UnitTarget, UnitWhatNext, UnitResource;
+uses UTargetList, UWhatNext, UResourceList;
 
 procedure TMainForm.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
