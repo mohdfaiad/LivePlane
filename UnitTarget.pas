@@ -18,7 +18,11 @@ type
     MasterButton: TSpeedButton;
     ConfigButton: TSpeedButton;
     MultiViewPopup: TMultiView;
-    ListBox1: TListBox;
+    ListBoxCommand: TListBox;
+    ListBoxItemAdd: TListBoxItem;
+    ListBoxItemSelected: TListBoxItem;
+    ListBoxItemDelete: TListBoxItem;
+    ListBoxItem1: TListBoxItem;
     procedure MasterButtonClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
@@ -40,7 +44,7 @@ uses
 
 procedure TFormTarget.FormShow(Sender: TObject);
 begin
-  //MultiViewPopup.PopoverOptions.PopupHeight := ListBoxItemAdd.Height * 3;
+  MultiViewPopup.PopoverOptions.PopupHeight := ListBoxItemAdd.Height * 3;
   Update;
 end;
 
@@ -66,7 +70,7 @@ begin
       Item.ItemData.Accessory := TListBoxItemData.TAccessory.aMore;
       Item.TextSettings.WordWrap := True;
       Item.TextSettings.FontColor := TAlphaColorRec.Teal;
-      Item.StyleLookup := 'listboxitembottomdetail';
+      Item.StyleLookup := '';
     //  Item.OnClick := OnClick;
       if not FDQuery.FieldByName('ID').IsNull then
         Item.Tag := FDQuery.FieldByName('ID').AsInteger;

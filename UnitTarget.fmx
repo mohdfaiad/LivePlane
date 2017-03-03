@@ -27,6 +27,15 @@ object FormTarget: TFormTarget
       DefaultItemStyles.GroupFooterStyle = ''
       Viewport.Width = 506.000000000000000000
       Viewport.Height = 578.000000000000000000
+      object ListBoxItem1: TListBoxItem
+        IsChecked = True
+        Size.Width = 506.000000000000000000
+        Size.Height = 41.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'listboxitembottomdetail'
+        TabOrder = 0
+        Text = 'ListBoxItem1'
+      end
     end
     object ToolBar: TToolBar
       Size.Width = 510.000000000000000000
@@ -70,7 +79,7 @@ object FormTarget: TFormTarget
     Size.PlatformDefault = False
     Visible = False
     TabOrder = 3
-    object ListBox1: TListBox
+    object ListBoxCommand: TListBox
       Align = Client
       Size.Width = 201.000000000000000000
       Size.Height = 200.000000000000000000
@@ -82,6 +91,20 @@ object FormTarget: TFormTarget
       DefaultItemStyles.GroupFooterStyle = ''
       Viewport.Width = 197.000000000000000000
       Viewport.Height = 196.000000000000000000
+      object ListBoxItemAdd: TListBoxItem
+        TabOrder = 0
+        Text = #1044#1086#1073#1072#1074#1080#1090#1100
+      end
+      object ListBoxItemSelected: TListBoxItem
+        Position.Y = 19.000000000000000000
+        TabOrder = 2
+        Text = #1042#1099#1076#1077#1083#1080#1090#1100
+      end
+      object ListBoxItemDelete: TListBoxItem
+        Position.Y = 38.000000000000000000
+        TabOrder = 1
+        Text = #1059#1076#1072#1083#1080#1090#1100
+      end
     end
   end
 end
