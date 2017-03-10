@@ -15,7 +15,7 @@ uses
   FireDAC.Comp.Client;
 
 type
-  TFormResource = class(TForm)
+  TFormResourceList = class(TForm)
     LayoutMain: TLayout;
     ListBox: TListBox;
     ToolBar: TToolBar;
@@ -42,7 +42,7 @@ type
   end;
 
 var
-  FormResource: TFormResource;
+  FormResourceList: TFormResourceList;
 
 implementation
 
@@ -51,13 +51,13 @@ uses
 
 {$R *.fmx}
 
-procedure TFormResource.FormShow(Sender: TObject);
+procedure TFormResourceList.FormShow(Sender: TObject);
 begin
   MultiViewPopup.PopoverOptions.PopupHeight := ListBoxItemAdd.Height * 3;
   Update;
 end;
 
-procedure TFormResource.ListBoxItemAddClick(Sender: TObject);
+procedure TFormResourceList.ListBoxItemAddClick(Sender: TObject);
 begin
   MultiViewPopup.HideMaster;
   FormResourceNew.CreateMode;
@@ -65,7 +65,7 @@ begin
   FormResourceNew.Show;
 end;
 
-procedure TFormResource.ListBoxItemDeleteClick(Sender: TObject);
+procedure TFormResourceList.ListBoxItemDeleteClick(Sender: TObject);
 var
   I: Integer;
 begin
@@ -78,18 +78,18 @@ begin
   MultiViewPopup.HideMaster;
 end;
 
-procedure TFormResource.ListBoxItemSelectedClick(Sender: TObject);
+procedure TFormResourceList.ListBoxItemSelectedClick(Sender: TObject);
 begin
   MultiViewPopup.HideMaster;
   ListBox.ShowCheckboxes := True;
 end;
 
-procedure TFormResource.MasterButtonClick(Sender: TObject);
+procedure TFormResourceList.MasterButtonClick(Sender: TObject);
 begin
   Close;
 end;
 
-procedure TFormResource.OnClick(Sender: TObject);
+procedure TFormResourceList.OnClick(Sender: TObject);
 begin
   if not(Sender is TListBoxItem) then
     Exit;
@@ -123,7 +123,7 @@ begin
   FormResourceNew.Show;
 end;
 
-procedure TFormResource.Remove(AIndex: Integer);
+procedure TFormResourceList.Remove(AIndex: Integer);
 var
   Buffer: String;
 begin
@@ -136,7 +136,7 @@ begin
   end;
 end;
 
-procedure TFormResource.Update;
+procedure TFormResourceList.Update;
 var
   Item: TListBoxItem;
 begin
@@ -148,7 +148,7 @@ begin
     while not FDQuery.Eof do
     begin
       Item := TListBoxItem.Create(nil);
-      Item.Parent := FormResource.ListBox;
+      Item.Parent := FormResourceList.ListBox;
       Item.Height := 65;
       Item.ItemData.Accessory := TListBoxItemData.TAccessory.aMore;
       Item.TextSettings.WordWrap := True;

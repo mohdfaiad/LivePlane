@@ -32,15 +32,18 @@ type
     ListBoxItemResource: TListBoxItem;
     ImageList: TImageList;
     ListBoxItemTarget: TListBoxItem;
-    ListBoxItemWhatNext: TListBoxItem;
     MultiViewPopup: TMultiView;
     FDConnection: TFDConnection;
     BindingsList: TBindingsList;
     ListBoxItemNotes: TListBoxItem;
     FDQuery: TFDQuery;
     FDTransaction: TFDTransaction;
+    ListBox: TListBox;
+    ListBoxItem1: TListBoxItem;
+    ListBoxItem2: TListBoxItem;
+    ListBoxItem3: TListBoxItem;
+    ListBoxItem4: TListBoxItem;
     procedure ListBoxItemTargetClick(Sender: TObject);
-    procedure ListBoxItemWhatNextClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure ListBoxItemResourceClick(Sender: TObject);
@@ -57,7 +60,7 @@ implementation
 
 {$R *.fmx}
 
-uses UTargetList, UWhatNext, UResourceList;
+uses UTargetList, UResourceList;
 
 procedure TMainForm.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
@@ -81,19 +84,13 @@ end;
 
 procedure TMainForm.ListBoxItemResourceClick(Sender: TObject);
 begin
-  FormResource.Show;
+  FormResourceList.Show;
   MultiView.HideMaster;
 end;
 
 procedure TMainForm.ListBoxItemTargetClick(Sender: TObject);
 begin
-  FormTarget.Show;
-  MultiView.HideMaster;
-end;
-
-procedure TMainForm.ListBoxItemWhatNextClick(Sender: TObject);
-begin
-  FormWhatNext.Show;
+  FormTargetList.Show;
   MultiView.HideMaster;
 end;
 

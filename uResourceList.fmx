@@ -1,9 +1,9 @@
-object FormResource: TFormResource
+object FormResourceList: TFormResourceList
   Left = 0
   Top = 0
   Caption = 'FormResource'
   ClientHeight = 630
-  ClientWidth = 523
+  ClientWidth = 510
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
@@ -11,13 +11,13 @@ object FormResource: TFormResource
   DesignerMasterStyle = 0
   object LayoutMain: TLayout
     Align = Client
-    Size.Width = 523.000000000000000000
+    Size.Width = 510.000000000000000000
     Size.Height = 630.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 0
     object ListBox: TListBox
       Align = Client
-      Size.Width = 523.000000000000000000
+      Size.Width = 510.000000000000000000
       Size.Height = 582.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 1
@@ -26,17 +26,17 @@ object FormResource: TFormResource
       DefaultItemStyles.ItemStyle = ''
       DefaultItemStyles.GroupHeaderStyle = ''
       DefaultItemStyles.GroupFooterStyle = ''
-      Viewport.Width = 519.000000000000000000
+      Viewport.Width = 506.000000000000000000
       Viewport.Height = 578.000000000000000000
     end
     object ToolBar: TToolBar
-      Size.Width = 523.000000000000000000
+      Size.Width = 510.000000000000000000
       Size.Height = 48.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 0
       object ToolLabel: TLabel
         Align = Client
-        Size.Width = 427.000000000000000000
+        Size.Width = 414.000000000000000000
         Size.Height = 48.000000000000000000
         Size.PlatformDefault = False
         StyleLookup = 'toollabel'
@@ -52,7 +52,7 @@ object FormResource: TFormResource
       end
       object ConfigButton: TSpeedButton
         Align = MostRight
-        Position.X = 475.000000000000000000
+        Position.X = 462.000000000000000000
         Size.Width = 48.000000000000000000
         Size.Height = 48.000000000000000000
         Size.PlatformDefault = False

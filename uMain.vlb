@@ -13,9 +13,6 @@ Coordinates=510,360,104,33
 [MasterButton]
 Coordinates=10,232,80,51
 
-[ListBoxItemWhatNext]
-Coordinates=338,300,120,33
-
 [MultiView]
 Coordinates=119,300,61,33
 
@@ -41,7 +38,7 @@ Coordinates=386,232,53,33
 Coordinates=239,232,120,33
 
 []
-Coordinates=850,150,87,159
+Coordinates=338,300,120,33
 Visible=False
 LayerNames=Resource
 

@@ -5,23 +5,23 @@ uses
   FMX.Forms,
   uMain in 'uMain.pas' {MainForm},
   Engine in 'Engine.pas',
-  UTargetList in 'UTargetList.pas' {FormTarget},
-  UWhatNext in 'UWhatNext.pas' {FormWhatNext},
-  UResourceList in 'UResourceList.pas' {FormResource},
-  UResourceNew in 'UResourceNew.pas' {FormResourceNew},
-  UTargetNew in 'UTargetNew.pas' {TFormTargetNew},
-  UTaskList in 'UTaskList.pas' {TFormTaskList};
+  uTargetList in 'uTargetList.pas' {FormTargetList},
+  uResourceList in 'uResourceList.pas' {FormResourceList},
+  uResourceNew in 'uResourceNew.pas' {FormResourceNew},
+  uTargetNew in 'uTargetNew.pas' {TFormTargetNew},
+  uTaskList in 'uTaskList.pas' {FormTaskList},
+  uTargetView in 'uTargetView.pas' {FormTargetView};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.CreateForm(TMainForm, MainForm);
-  Application.CreateForm(TFormTarget, FormTarget);
-  Application.CreateForm(TFormWhatNext, FormWhatNext);
-  Application.CreateForm(TFormResource, FormResource);
+  Application.CreateForm(TFormTargetList, FormTargetList);
+  Application.CreateForm(TFormResourceList, FormResourceList);
   Application.CreateForm(TFormResourceNew, FormResourceNew);
   Application.CreateForm(TTFormTargetNew, TFormTargetNew);
-  Application.CreateForm(TTFormTaskList, TFormTaskList);
+  Application.CreateForm(TFormTaskList, FormTaskList);
+  Application.CreateForm(TFormTargetView, FormTargetView);
   Application.Run;
 end.

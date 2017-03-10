@@ -100,8 +100,6 @@ end;
 
 procedure TFormResourceNew.CreateRecord;
 // Создание записи
-var
-  MaxIndex: Integer;
 begin
   if EditName.Text = '' then
   begin
@@ -116,20 +114,9 @@ begin
 
   With MainForm do
   begin
-    // Получаем максимальный ID
-    MaxIndex := 0;
     try
-      FDQuery.Open('SELECT MAX(ID) FROM RESOURCE');
-      if not FDQuery.FieldList.Fields[0].IsNull then
-        MaxIndex := FDQuery.FieldList.Fields[0].AsInteger;
-    finally
-      FDQuery.Close;
-    end;
-    // Записываем
-    try
-      FDQuery.execsql('PRAGMA foreign_keys=ON');
       FDQuery.SQL.Text := 'INSERT INTO RESOURCE VALUES (:rid, :name, :measure, :detail, :startvalue, :icon)';
-      FDQuery.ParamByName('rid').AsInteger := MaxIndex + 1;
+      FDQuery.ParamByName('rid').DataType := ftAutoInc;
       FDQuery.ParamByName('name').DataType := TFieldType.ftString;
       FDQuery.ParamByName('name').AsString := EditName.Text;
       FDQuery.ParamByName('measure').DataType := TFieldType.ftString;
@@ -147,15 +134,8 @@ begin
       FDQuery.Close;
     end;
   end;
-  FormResource.Update;
+  FormResourceList.Update;
   Close;
-
-  {
-    fConnection.ExecSQL('PRAGMA foreign_keys=ON');
-    fConnection.ExecSQL('create table if not exists tblFilms (ID INTEGER PRIMARY KEY AUTOINCREMENT, Title_Ru TEXT, Title TEXT, Year INT, Kinopoisk TEXT);');
-    fConnection.ExecSQL('create table if not exists tblLists (ID INTEGER PRIMARY KEY AUTOINCREMENT, Title TEXT);');
-    fConnection.ExecSQL('create table if not exists tblFL (ID_Film INTEGER NOT NULL REFERENCES tblFilms(ID) ON DELETE CASCADE,  ID_List INTEGER NOT NULL REFERENCES tblLists(ID) ON DELETE CASCADE);');
-  }
 end;
 
 procedure TFormResourceNew.EditMode(AID: Integer);
@@ -261,7 +241,7 @@ begin
       FDQuery.Close;
     end;
   end;
-  FormResource.Update;
+  FormResourceList.Update;
   Close;
 end;
 

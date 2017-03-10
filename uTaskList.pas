@@ -7,18 +7,26 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs;
 
 type
-  TTFormTaskList = class(TForm)
+  TFormTaskList = class(TForm)
   private
     { Private declarations }
   public
     { Public declarations }
+    procedure Clear;
   end;
 
 var
-  TFormTaskList: TTFormTaskList;
+  FormTaskList: TFormTaskList;
 
 implementation
 
 {$R *.fmx}
+
+{ TTFormTaskList }
+
+procedure TFormTaskList.Clear;
+begin
+
+end;
 
 end.

@@ -1,4 +1,4 @@
-object FormTarget: TFormTarget
+object FormTargetList: TFormTargetList
   Left = 0
   Top = 0
   Caption = 'Form1'
@@ -22,6 +22,7 @@ object FormTarget: TFormTarget
       Size.PlatformDefault = False
       TabOrder = 1
       DisableFocusEffect = True
+      Images = MainForm.ImageList
       DefaultItemStyles.ItemStyle = ''
       DefaultItemStyles.GroupHeaderStyle = ''
       DefaultItemStyles.GroupFooterStyle = ''
