@@ -160,8 +160,7 @@ begin
       if not FDQuery.FieldByName('NAME').IsNull then
         Item.ItemData.Text := FDQuery.FieldByName('NAME').AsString;
       if not FDQuery.FieldByName('MEASURE').IsNull then
-        Item.ItemData.Text := Item.ItemData.Text + ' (' + FDQuery.FieldByName('MEASURE')
-          .AsString + ')';
+        Item.ItemData.Text := Item.ItemData.Text + ' (' + FDQuery.FieldByName('MEASURE').AsString + ')';
       if not FDQuery.FieldByName('detail').IsNull then
         Item.ItemData.Detail := FDQuery.FieldByName('detail').AsString;
       if not FDQuery.FieldByName('ICON').IsNull then

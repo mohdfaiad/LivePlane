@@ -160,47 +160,52 @@ var
   ThreadID: Cardinal;
 {$ENDIF}
 begin
-  if not(Sender is TListBoxItem) then
-    Exit;
+  ListBox.Visible := False;
+  try
+    if not(Sender is TListBoxItem) then
+      Exit;
 
-  GetMem(Msg, SizeOf(TRemoveMessage));
-  Msg^.MessageId := USER_MESSAGE_RELOADTASK;
-  Msg^.TaskId := TListBoxItem(Sender).Tag;
+    GetMem(Msg, SizeOf(TRemoveMessage));
+    Msg^.MessageId := USER_MESSAGE_RELOADTASK;
+    Msg^.TaskId := TListBoxItem(Sender).Tag;
 
-  if AvaibleChild(Msg^.TaskId) then
-  begin
-{$IFDEF ANDROID}
-    BeginThread(nil, @ReloadThread, Msg, ThreadID);
-{$ELSE}
-    BeginThread(nil, 0, @ReloadThread, Msg, 0, ThreadID);
-{$ENDIF}
-    Exit;
-  end;
-
-  FormTargetView.Clear;
-  With MainForm do
-  begin
-    FDQuery.Open('SELECT * FROM TASKS WHERE ParentID = ' + IntToStr(TListBoxItem(Sender).Tag));
-    while not FDQuery.Eof do
+    if AvaibleChild(Msg^.TaskId) then
     begin
-      { if not FDQuery.FieldByName('NAME').IsNull then
-        FormTarget.EditName.Text := FDQuery.FieldByName('NAME').AsString;
-        if not FDQuery.FieldByName('MEASURE').IsNull then
-        FormTarget.EditMeasure.Text := FDQuery.FieldByName('MEASURE').AsString;
-        if not FDQuery.FieldByName('DETAIL').IsNull then
-        FormTarget.EditDetail.Text := FDQuery.FieldByName('detail').AsString;
-        if not FDQuery.FieldByName('STARTVALUE').IsNull then
-        FormTarget.EditStartValue.Text := FDQuery.FieldByName('STARTVALUE').AsString;
-        if not FDQuery.FieldByName('ICON').IsNull then
-        begin
-        FormTarget.ListBox.ItemIndex := FDQuery.FieldByName('ICON').AsInteger;
-        FormTarget.ListBox.Selected.IsChecked := True;
-        end; }
-      FDQuery.Next;
+{$IFDEF ANDROID}
+      BeginThread(nil, @ReloadThread, Msg, ThreadID);
+{$ELSE}
+      BeginThread(nil, 0, @ReloadThread, Msg, 0, ThreadID);
+{$ENDIF}
+      Exit;
     end;
-    FDQuery.Close;
+
+    FormTargetView.Clear;
+    With MainForm do
+    begin
+      FDQuery.Open('SELECT * FROM TASKS WHERE ParentID = ' + IntToStr(TListBoxItem(Sender).Tag));
+      while not FDQuery.Eof do
+      begin
+        { if not FDQuery.FieldByName('NAME').IsNull then
+          FormTarget.EditName.Text := FDQuery.FieldByName('NAME').AsString;
+          if not FDQuery.FieldByName('MEASURE').IsNull then
+          FormTarget.EditMeasure.Text := FDQuery.FieldByName('MEASURE').AsString;
+          if not FDQuery.FieldByName('DETAIL').IsNull then
+          FormTarget.EditDetail.Text := FDQuery.FieldByName('detail').AsString;
+          if not FDQuery.FieldByName('STARTVALUE').IsNull then
+          FormTarget.EditStartValue.Text := FDQuery.FieldByName('STARTVALUE').AsString;
+          if not FDQuery.FieldByName('ICON').IsNull then
+          begin
+          FormTarget.ListBox.ItemIndex := FDQuery.FieldByName('ICON').AsInteger;
+          FormTarget.ListBox.Selected.IsChecked := True;
+          end; }
+        FDQuery.Next;
+      end;
+      FDQuery.Close;
+    end;
+    FormTargetView.Show;
+  finally
+    ListBox.Visible := True;
   end;
-  FormTargetView.Show;
 end;
 
 procedure TFormTaskList.ReloadTask(var AMessage: TRemoveMessage);
