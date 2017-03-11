@@ -60,7 +60,7 @@ implementation
 
 {$R *.fmx}
 
-uses UTargetList, UResourceList;
+uses uTaskList, UResourceList;
 
 procedure TMainForm.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
@@ -90,7 +90,7 @@ end;
 
 procedure TMainForm.ListBoxItemTargetClick(Sender: TObject);
 begin
-  FormTargetList.Show;
+  FormTaskList.Show;
   MultiView.HideMaster;
 end;
 

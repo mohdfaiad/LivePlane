@@ -5,11 +5,10 @@ uses
   FMX.Forms,
   uMain in 'uMain.pas' {MainForm},
   Engine in 'Engine.pas',
-  uTargetList in 'uTargetList.pas' {FormTargetList},
+  uTaskList in 'uTaskList.pas' {FormTaskList},
   uResourceList in 'uResourceList.pas' {FormResourceList},
   uResourceNew in 'uResourceNew.pas' {FormResourceNew},
-  uTargetNew in 'uTargetNew.pas' {TFormTargetNew},
-  uTaskList in 'uTaskList.pas' {FormTaskList},
+  uTargetNew in 'uTargetNew.pas' {FormTargetNew},
   uTargetView in 'uTargetView.pas' {FormTargetView};
 
 {$R *.res}
@@ -17,11 +16,10 @@ uses
 begin
   Application.Initialize;
   Application.CreateForm(TMainForm, MainForm);
-  Application.CreateForm(TFormTargetList, FormTargetList);
+  Application.CreateForm(TFormTaskList, FormTaskList);
   Application.CreateForm(TFormResourceList, FormResourceList);
   Application.CreateForm(TFormResourceNew, FormResourceNew);
-  Application.CreateForm(TTFormTargetNew, TFormTargetNew);
-  Application.CreateForm(TFormTaskList, FormTaskList);
+  Application.CreateForm(TFormTargetNew, FormTargetNew);
   Application.CreateForm(TFormTargetView, FormTargetView);
   Application.Run;
 end.

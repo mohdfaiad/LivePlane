@@ -95,7 +95,7 @@ begin
   ToolLabel.Text := 'Добавление нового ресурса';
   Mode := mCreate;
   ConfigButton.StyleLookup := 'additembutton';
-  fSelectedID := INVALID_HANDLE_VALUE;
+  fSelectedID := Integer(INVALID_HANDLE_VALUE);
 end;
 
 procedure TFormResourceNew.CreateRecord;
