@@ -7,7 +7,7 @@ object FormTaskList: TFormTaskList
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
-  OnCloseQuery = FormCloseQuery
+  OnClose = FormClose
   OnKeyUp = FormKeyUp
   OnShow = FormShow
   DesignerMasterStyle = 0

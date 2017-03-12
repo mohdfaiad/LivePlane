@@ -9,18 +9,6 @@ uses
   FMX.ListBox, FMX.Layouts, System.ImageList, FMX.ImgList, FMX.StdCtrls,
   FMX.Controls.Presentation, FMX.MultiView;
 
-const
-  // Чтобы TListBoxItem не могу очистить TListBox, передадим сообщение форме, чтобы она сама это сделала
-  USER_MESSAGE_RELOADTASK = 1;
-
-type
-  TRemoveMessage = packed record
-    MessageId: Word;
-    TaskId: Integer;
-  end;
-
-  PRemoveMessage = ^TRemoveMessage;
-
 type
   TFormTaskList = class(TForm)
     LayoutMain: TLayout;
@@ -36,14 +24,13 @@ type
     ListBoxItemDelete: TListBoxItem;
     procedure MasterButtonClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure ListBoxItemAddClick(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     fCurrTaskID: Integer;
     { Private declarations }
     procedure OnClick(Sender: TObject);
-    procedure ReloadTask(var AMessage: TRemoveMessage); message USER_MESSAGE_RELOADTASK;
   public
     { Public declarations }
     function AvaibleChild(TaskId: Integer = 0): Boolean;
@@ -60,21 +47,6 @@ uses
   uMain, uTargetView, uTargetNew;
 
 {$R *.fmx}
-
-function ReloadThread(Parameter: PRemoveMessage): Integer;
-// Поток создаёт сообщение фрейму для перезагрузки контента
-var
-  Msg: TRemoveMessage;
-begin
-  Msg.MessageId := Parameter^.MessageId;
-  Msg.TaskId := Parameter^.TaskId;
-  FreeMem(Parameter);
-  // Грязный код, но нужно дождаться завершения OnClick
-  Sleep(50);
-  //
-  FormTaskList.Dispatch(Msg);
-  Result := 0;
-end;
 
 function TFormTaskList.AvaibleChild(TaskId: Integer): Boolean;
 // Есть ли дочернии элементы?
@@ -117,6 +89,7 @@ begin
 end;
 
 procedure TFormTaskList.ListBoxItemAddClick(Sender: TObject);
+// Добавляем новую задачу
 begin
   MultiViewPopup.HideMaster;
   FormTargetNew.CreateMode;
@@ -124,108 +97,119 @@ begin
   FormTargetNew.Show;
 end;
 
-procedure TFormTaskList.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+procedure TFormTaskList.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  CanClose := fCurrTaskID = 0;
   if fCurrTaskID <> 0 then
-    MasterButtonClick(Sender);
+    Action := TCloseAction.caFree;
 end;
 
-procedure TFormTaskList.FormKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+procedure TFormTaskList.FormKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char;
+  Shift: TShiftState);
 begin
 {$IFDEF ANDROID}
   if Key = vkHardwareBack then
-    if fCurrTaskID <> 0 then
-    begin
-      MasterButtonClick(Sender);
-      Key := 0;
-    end;
+  begin
+    MasterButtonClick(Sender);
+    Key := 0;
+  end;
 {$ENDIF}
 end;
 
 procedure TFormTaskList.MasterButtonClick(Sender: TObject);
 begin
-  if fCurrTaskID = 0 then
-    Close
-  else
-    Update(GetParentTask(fCurrTaskID));
+  Close;
 end;
 
 procedure TFormTaskList.OnClick(Sender: TObject);
 var
-  Msg: PRemoveMessage;
-{$IFDEF ANDROID}
-  ThreadID: NativeUInt;
-{$ELSE}
-  ThreadID: Cardinal;
-{$ENDIF}
+  FormTaskListNew: TFormTaskList;
 begin
   ListBox.Visible := False;
   try
     if not(Sender is TListBoxItem) then
-      Exit;
-
-    GetMem(Msg, SizeOf(TRemoveMessage));
-    Msg^.MessageId := USER_MESSAGE_RELOADTASK;
-    Msg^.TaskId := TListBoxItem(Sender).Tag;
-
-    if AvaibleChild(Msg^.TaskId) then
+      exit;
+    if AvaibleChild(TListBoxItem(Sender).Tag) then
     begin
-{$IFDEF ANDROID}
-      BeginThread(nil, @ReloadThread, Msg, ThreadID);
-{$ELSE}
-      BeginThread(nil, 0, @ReloadThread, Msg, 0, ThreadID);
-{$ENDIF}
-      Exit;
-    end;
-
-    FormTargetView.Clear;
-    With MainForm do
+      Application.CreateForm(TFormTaskList, FormTaskListNew);
+      FormTaskListNew.Show;
+      FormTaskListNew.Update(TListBoxItem(Sender).Tag);
+    end
+    else
     begin
-      FDQuery.Open('SELECT * FROM TASKS WHERE ParentID = ' + IntToStr(TListBoxItem(Sender).Tag));
-      while not FDQuery.Eof do
+      FormTargetView.Clear;
+      With MainForm do
       begin
-        { if not FDQuery.FieldByName('NAME').IsNull then
-          FormTarget.EditName.Text := FDQuery.FieldByName('NAME').AsString;
-          if not FDQuery.FieldByName('MEASURE').IsNull then
-          FormTarget.EditMeasure.Text := FDQuery.FieldByName('MEASURE').AsString;
-          if not FDQuery.FieldByName('DETAIL').IsNull then
-          FormTarget.EditDetail.Text := FDQuery.FieldByName('detail').AsString;
-          if not FDQuery.FieldByName('STARTVALUE').IsNull then
-          FormTarget.EditStartValue.Text := FDQuery.FieldByName('STARTVALUE').AsString;
-          if not FDQuery.FieldByName('ICON').IsNull then
-          begin
-          FormTarget.ListBox.ItemIndex := FDQuery.FieldByName('ICON').AsInteger;
-          FormTarget.ListBox.Selected.IsChecked := True;
-          end; }
-        FDQuery.Next;
+        FDQuery.Open('SELECT * FROM TASKS WHERE ParentID = ' + IntToStr(TListBoxItem(Sender).Tag));
+        while not FDQuery.Eof do
+        begin
+          { if not FDQuery.FieldByName('NAME').IsNull then
+            FormTarget.EditName.Text := FDQuery.FieldByName('NAME').AsString;
+            if not FDQuery.FieldByName('MEASURE').IsNull then
+            FormTarget.EditMeasure.Text := FDQuery.FieldByName('MEASURE').AsString;
+            if not FDQuery.FieldByName('DETAIL').IsNull then
+            FormTarget.EditDetail.Text := FDQuery.FieldByName('detail').AsString;
+            if not FDQuery.FieldByName('STARTVALUE').IsNull then
+            FormTarget.EditStartValue.Text := FDQuery.FieldByName('STARTVALUE').AsString;
+            if not FDQuery.FieldByName('ICON').IsNull then
+            begin
+            FormTarget.ListBox.ItemIndex := FDQuery.FieldByName('ICON').AsInteger;
+            FormTarget.ListBox.Selected.IsChecked := True;
+            end; }
+          FDQuery.Next;
+        end;
+        FDQuery.Close;
       end;
-      FDQuery.Close;
+      FormTargetView.Show;
     end;
-    FormTargetView.Show;
   finally
     ListBox.Visible := True;
   end;
-end;
 
-procedure TFormTaskList.ReloadTask(var AMessage: TRemoveMessage);
-// Реакция на сообщение о перезагрузке фрейма
-begin
-  Update(AMessage.TaskId);
 end;
 
 procedure TFormTaskList.Update(TaskId: Integer = 0);
 // Обновление данных в ListBox
 var
+  Head: TListBoxGroupHeader;
+  Footer: TListBoxGroupFooter;
   Item: TListBoxItem;
+  Panel: TPanel;
 begin
   fCurrTaskID := TaskId;
-  ListBox.BeginUpdate;
+  Self.ListBox.BeginUpdate;
   try
-    ListBox.ShowCheckboxes := False;
-    ListBox.Clear;
+    Self.ListBox.ShowCheckboxes := False;
+    Self.ListBox.Clear;
     With MainForm do
     begin
+      // Описание задачи
+      if TaskId <> 0 then
+      begin
+        FDQuery.Open('SELECT * FROM TASKS WHERE ID = ' + IntToStr(TaskId));
+        while not FDQuery.Eof do
+        begin
+          Head := TListBoxGroupHeader.Create(nil);
+          if not FDQuery.FieldByName('NAME').IsNull then
+            Head.Text := FDQuery.FieldByName('NAME').AsString;
+          Self.ListBox.AddObject(Head);
+
+          Panel:= TPanel.Create(nil);
+         // Item := TListBoxItem.Create(nil);
+        //  Item.Text := 'dsfsd';
+          Self.ListBox.AddObject(Panel);
+
+          Footer := TListBoxGroupFooter.Create(nil);
+          Self.ListBox.AddObject(Footer);
+
+          FDQuery.Next;
+        end;
+        FDQuery.Close;
+
+        Head := TListBoxGroupHeader.Create(nil);
+        Head.Text := 'Подзадачи';
+        Self.ListBox.AddObject(Head);
+      end;
+      // Подзадачи
       FDQuery.Open('SELECT * FROM TASKS WHERE ParentID = ' + IntToStr(TaskId));
       while not FDQuery.Eof do
       begin
@@ -249,13 +233,13 @@ begin
           Item.ImageIndex := FDQuery.FieldByName('ICON').AsInteger;
 
         // Добавляем его в листбокс
-        FormTaskList.ListBox.AddObject(Item);
+        Self.ListBox.AddObject(Item);
         FDQuery.Next;
       end;
       FDQuery.Close;
     end;
   finally
-    ListBox.EndUpdate;
+    Self.ListBox.EndUpdate;
   end;
 end;
 

@@ -105,7 +105,7 @@ begin
     Notification.Name := 'MyNotification'; // Название
     Notification.AlertBody := 'Уведомление: PWcode.net'; // содержание уведомления
     Notification.FireDate := Now + EncodeTime(0, 0, 4, 0); // Задержка отправки на 4 секунды
-    NotificationCenter.ScheduleNotification(Notification); // отправка уведомления в компонент
+ //   NotificationCenter.ScheduleNotification(Notification); // отправка уведомления в компонент
   finally
     Notification.DisposeOf; // очистка переменной при возникновении ошибки
   end;
