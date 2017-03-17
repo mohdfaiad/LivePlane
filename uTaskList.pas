@@ -7,7 +7,7 @@ uses
   System.Variants, IOUTils,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Ani,
   FMX.ListBox, FMX.Layouts, System.ImageList, FMX.ImgList, FMX.StdCtrls,
-  FMX.Controls.Presentation, FMX.MultiView;
+  FMX.Controls.Presentation, FMX.MultiView, FMX.WebBrowser, MarkdownProcessor;
 
 type
   TFormTaskList = class(TForm)
@@ -22,12 +22,20 @@ type
     ListBoxItemAdd: TListBoxItem;
     ListBoxItemSelected: TListBoxItem;
     ListBoxItemDelete: TListBoxItem;
+    Panel: TPanel;
+    LabelTaskName: TLabel;
+    LabelTaskDetail: TLabel;
+    WebBrowser: TWebBrowser;
+    Button1: TButton;
+    Button2: TButton;
+    Button3: TButton;
     procedure MasterButtonClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure ListBoxItemAddClick(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
+    fMD: TMarkdownProcessor;
     fCurrTaskID: Integer;
     { Private declarations }
     procedure OnClick(Sender: TObject);
@@ -63,6 +71,8 @@ end;
 
 procedure TFormTaskList.FormShow(Sender: TObject);
 begin
+  fMD := TMarkdownProcessor.createDialect(mdDaringFireball);
+  fMD.UnSafe := true;
   fCurrTaskID := 0;
   MultiViewPopup.PopoverOptions.PopupHeight := ListBoxItemAdd.Height * 3;
   Update;
@@ -99,12 +109,13 @@ end;
 
 procedure TFormTaskList.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
+  if Assigned(fMD) then
+    fMD.free;
   if fCurrTaskID <> 0 then
     Action := TCloseAction.caFree;
 end;
 
-procedure TFormTaskList.FormKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char;
-  Shift: TShiftState);
+procedure TFormTaskList.FormKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
 begin
 {$IFDEF ANDROID}
   if Key = vkHardwareBack then
@@ -162,7 +173,7 @@ begin
       FormTargetView.Show;
     end;
   finally
-    ListBox.Visible := True;
+    ListBox.Visible := true;
   end;
 
 end;
@@ -173,7 +184,6 @@ var
   Head: TListBoxGroupHeader;
   Footer: TListBoxGroupFooter;
   Item: TListBoxItem;
-  Panel: TPanel;
 begin
   fCurrTaskID := TaskId;
   Self.ListBox.BeginUpdate;
@@ -183,23 +193,24 @@ begin
     With MainForm do
     begin
       // Описание задачи
+      Panel.Visible := TaskId <> 0;
       if TaskId <> 0 then
       begin
         FDQuery.Open('SELECT * FROM TASKS WHERE ID = ' + IntToStr(TaskId));
         while not FDQuery.Eof do
         begin
-          Head := TListBoxGroupHeader.Create(nil);
+          // имя задачи
           if not FDQuery.FieldByName('NAME').IsNull then
-            Head.Text := FDQuery.FieldByName('NAME').AsString;
-          Self.ListBox.AddObject(Head);
-
-          Panel:= TPanel.Create(nil);
-         // Item := TListBoxItem.Create(nil);
-        //  Item.Text := 'dsfsd';
-          Self.ListBox.AddObject(Panel);
-
-          Footer := TListBoxGroupFooter.Create(nil);
-          Self.ListBox.AddObject(Footer);
+          begin
+            LabelTaskName.Text := FDQuery.FieldByName('NAME').AsString;
+            LabelTaskName.FontColor := TAlphaColor(FDQuery.FieldByName('TitleColor').AsInteger);
+          end;
+          // Детальное описание
+          if not FDQuery.FieldByName('DETAIL').IsNull then
+            LabelTaskDetail.Text := FDQuery.FieldByName('DETAIL').AsString;
+          // Комментарий
+          if not FDQuery.FieldByName('COMMENT').IsNull then
+            WebBrowser.LoadFromStrings(fMD.process(FDQuery.FieldByName('COMMENT').AsString), '');
 
           FDQuery.Next;
         end;
@@ -217,7 +228,7 @@ begin
         Item := TListBoxItem.Create(nil);
         Item.Height := 65;
         Item.ItemData.Accessory := TListBoxItemData.TAccessory.aMore;
-        Item.TextSettings.WordWrap := True;
+        Item.TextSettings.WordWrap := true;
         Item.TextSettings.FontColor := TAlphaColorRec.Teal;
         Item.StyleLookup := 'listboxitembottomdetail';
         Item.OnClick := OnClick;

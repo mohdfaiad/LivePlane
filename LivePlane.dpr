@@ -1,5 +1,5 @@
 program LivePlane;
-
+
 uses
   System.StartUpCopy,
   FMX.Forms,
@@ -9,7 +9,9 @@ uses
   uResourceList in 'uResourceList.pas' {FormResourceList},
   uResourceNew in 'uResourceNew.pas' {FormResourceNew},
   uTargetNew in 'uTargetNew.pas' {FormTargetNew},
-  uTargetView in 'uTargetView.pas' {FormTargetView};
+  uTargetView in 'uTargetView.pas' {FormTargetView},
+  MarkdownProcessor in 'markdown\source\MarkdownProcessor.pas',
+  MarkdownDaringFireball in 'markdown\source\MarkdownDaringFireball.pas';
 
 {$R *.res}
 
@@ -22,4 +24,6 @@ begin
   Application.CreateForm(TFormTargetNew, FormTargetNew);
   Application.CreateForm(TFormTargetView, FormTargetView);
   Application.Run;
+
 end.
+
