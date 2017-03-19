@@ -333,8 +333,8 @@
             <Form>FormTargetNew</Form>
             <FormType>fmx</FormType>
         </DCCReference>
-        <DCCReference Include="uTargetView.pas">
-            <Form>FormTargetView</Form>
+        <DCCReference Include="uTaskView.pas">
+            <Form>FormTaskView</Form>
             <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="markdown\source\MarkdownProcessor.pas"/>

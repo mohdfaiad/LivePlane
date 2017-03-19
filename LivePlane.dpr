@@ -9,7 +9,7 @@ uses
   uResourceList in 'uResourceList.pas' {FormResourceList},
   uResourceNew in 'uResourceNew.pas' {FormResourceNew},
   uTargetNew in 'uTargetNew.pas' {FormTargetNew},
-  uTargetView in 'uTargetView.pas' {FormTargetView},
+  uTaskView in 'uTaskView.pas' {FormTaskView},
   MarkdownProcessor in 'markdown\source\MarkdownProcessor.pas',
   MarkdownDaringFireball in 'markdown\source\MarkdownDaringFireball.pas';
 
@@ -22,7 +22,7 @@ begin
   Application.CreateForm(TFormResourceList, FormResourceList);
   Application.CreateForm(TFormResourceNew, FormResourceNew);
   Application.CreateForm(TFormTargetNew, FormTargetNew);
-  Application.CreateForm(TFormTargetView, FormTargetView);
+  Application.CreateForm(TFormTaskView, FormTaskView);
   Application.Run;
 
 end.

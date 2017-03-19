@@ -7,12 +7,12 @@ uses
   System.Variants, IOUTils,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Ani,
   FMX.ListBox, FMX.Layouts, System.ImageList, FMX.ImgList, FMX.StdCtrls,
-  FMX.Controls.Presentation, FMX.MultiView, FMX.WebBrowser, MarkdownProcessor;
+  FMX.Controls.Presentation, FMX.MultiView, FMX.WebBrowser, MarkdownProcessor,
+  FMX.Objects, FMX.ScrollBox;
 
 type
   TFormTaskList = class(TForm)
     LayoutMain: TLayout;
-    ListBox: TListBox;
     ToolBar: TToolBar;
     ToolLabel: TLabel;
     MasterButton: TSpeedButton;
@@ -22,13 +22,9 @@ type
     ListBoxItemAdd: TListBoxItem;
     ListBoxItemSelected: TListBoxItem;
     ListBoxItemDelete: TListBoxItem;
-    Panel: TPanel;
-    LabelTaskName: TLabel;
-    LabelTaskDetail: TLabel;
-    WebBrowser: TWebBrowser;
-    Button1: TButton;
-    Button2: TButton;
-    Button3: TButton;
+    MultiView: TMultiView;
+    Rectangle: TRectangle;
+    ListBox: TListBox;
     procedure MasterButtonClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure ListBoxItemAddClick(Sender: TObject);
@@ -52,7 +48,7 @@ var
 implementation
 
 uses
-  uMain, uTargetView, uTargetNew;
+  uMain, uTaskView, uTargetNew;
 
 {$R *.fmx}
 
@@ -139,39 +135,32 @@ begin
   try
     if not(Sender is TListBoxItem) then
       exit;
-    if AvaibleChild(TListBoxItem(Sender).Tag) then
-    begin
+    { if AvaibleChild(TListBoxItem(Sender).Tag) then
+      begin
       Application.CreateForm(TFormTaskList, FormTaskListNew);
       FormTaskListNew.Show;
       FormTaskListNew.Update(TListBoxItem(Sender).Tag);
-    end
-    else
+      end
+      else
+      begin }
+    FormTaskView.Clear;
+    With MainForm do
     begin
-      FormTargetView.Clear;
-      With MainForm do
+      FDQuery.Open('SELECT * FROM TASKS WHERE ID = ' + IntToStr(TListBoxItem(Sender).Tag));
+      while not FDQuery.Eof do
       begin
-        FDQuery.Open('SELECT * FROM TASKS WHERE ParentID = ' + IntToStr(TListBoxItem(Sender).Tag));
-        while not FDQuery.Eof do
-        begin
-          { if not FDQuery.FieldByName('NAME').IsNull then
-            FormTarget.EditName.Text := FDQuery.FieldByName('NAME').AsString;
-            if not FDQuery.FieldByName('MEASURE').IsNull then
-            FormTarget.EditMeasure.Text := FDQuery.FieldByName('MEASURE').AsString;
-            if not FDQuery.FieldByName('DETAIL').IsNull then
-            FormTarget.EditDetail.Text := FDQuery.FieldByName('detail').AsString;
-            if not FDQuery.FieldByName('STARTVALUE').IsNull then
-            FormTarget.EditStartValue.Text := FDQuery.FieldByName('STARTVALUE').AsString;
-            if not FDQuery.FieldByName('ICON').IsNull then
-            begin
-            FormTarget.ListBox.ItemIndex := FDQuery.FieldByName('ICON').AsInteger;
-            FormTarget.ListBox.Selected.IsChecked := True;
-            end; }
-          FDQuery.Next;
-        end;
-        FDQuery.Close;
+        if not FDQuery.FieldByName('NAME').IsNull then
+          FormTaskView.LabelTaskName.Text := FDQuery.FieldByName('NAME').AsString;
+        if not FDQuery.FieldByName('DETAIL').IsNull then
+          FormTaskView.LabelTaskDetail.Text := FDQuery.FieldByName('DETAIL').AsString;
+        if not FDQuery.FieldByName('COMMENT').IsNull then
+          FormTaskView.WebBrowser.LoadFromStrings(fMD.process(FDQuery.FieldByName('COMMENT').AsString), 'about:blank');
+        FDQuery.Next;
       end;
-      FormTargetView.Show;
+      FDQuery.Close;
     end;
+    FormTaskView.Show;
+    // end;
   finally
     ListBox.Visible := true;
   end;
@@ -192,35 +181,6 @@ begin
     Self.ListBox.Clear;
     With MainForm do
     begin
-      // Описание задачи
-      Panel.Visible := TaskId <> 0;
-      if TaskId <> 0 then
-      begin
-        FDQuery.Open('SELECT * FROM TASKS WHERE ID = ' + IntToStr(TaskId));
-        while not FDQuery.Eof do
-        begin
-          // имя задачи
-          if not FDQuery.FieldByName('NAME').IsNull then
-          begin
-            LabelTaskName.Text := FDQuery.FieldByName('NAME').AsString;
-            LabelTaskName.FontColor := TAlphaColor(FDQuery.FieldByName('TitleColor').AsInteger);
-          end;
-          // Детальное описание
-          if not FDQuery.FieldByName('DETAIL').IsNull then
-            LabelTaskDetail.Text := FDQuery.FieldByName('DETAIL').AsString;
-          // Комментарий
-          if not FDQuery.FieldByName('COMMENT').IsNull then
-            WebBrowser.LoadFromStrings(fMD.process(FDQuery.FieldByName('COMMENT').AsString), '');
-
-          FDQuery.Next;
-        end;
-        FDQuery.Close;
-
-        Head := TListBoxGroupHeader.Create(nil);
-        Head.Text := 'Подзадачи';
-        Self.ListBox.AddObject(Head);
-      end;
-      // Подзадачи
       FDQuery.Open('SELECT * FROM TASKS WHERE ParentID = ' + IntToStr(TaskId));
       while not FDQuery.Eof do
       begin
