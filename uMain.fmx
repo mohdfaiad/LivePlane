@@ -90,9 +90,10 @@ object MainForm: TMainForm
         Text = #1054#1087#1083#1072#1090#1080#1090#1100' '#1079#1072' '#1075#1072#1088#1072#1078
       end
       object ListBoxItem3: TListBoxItem
+        TextSettings.Font.StyleExt = {08040000000000000004000000}
         TextSettings.FontColor = claTeal
         TextSettings.WordWrap = True
-        StyledSettings = [Family, Size, Style]
+        StyledSettings = [Family, Size]
         ItemData.Detail = #1069#1090#1072#1087' '#1074#1099#1087#1086#1083#1085#1077#1085#1080#1103' '#1075#1083#1086#1073#1072#1083#1100#1085#1086#1081' '#1094#1077#1083#1080
         ItemData.Accessory = aMore
         ImageIndex = 4
@@ -105,9 +106,10 @@ object MainForm: TMainForm
         Text = #1050#1091#1087#1080#1090#1100' '#1084#1072#1090#1077#1088#1080#1085#1089#1082#1091#1102' '#1087#1083#1072#1090#1091
       end
       object ListBoxItem4: TListBoxItem
+        TextSettings.Font.StyleExt = {08040000000000000004000000}
         TextSettings.FontColor = claRed
         TextSettings.WordWrap = True
-        StyledSettings = [Family, Size, Style]
+        StyledSettings = [Family, Size]
         ItemData.Detail = #1060#1086#1088#1089'-'#1084#1072#1078#1086#1088', '#1074#1099#1090#1077#1089#1085#1103#1102#1097#1080#1077' '#1079#1072#1076#1072#1095#1080
         ItemData.Accessory = aMore
         ImageIndex = 0

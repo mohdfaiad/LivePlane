@@ -25,6 +25,22 @@ type
     MultiView: TMultiView;
     Rectangle: TRectangle;
     ListBox: TListBox;
+    ListBoxItem1: TListBoxItem;
+    ImageList1: TImageList;
+    ListBoxItem2: TListBoxItem;
+    ListBoxItem3: TListBoxItem;
+    ListBoxGroupHeader1: TListBoxGroupHeader;
+    ListBoxItem4: TListBoxItem;
+    ListBoxItem5: TListBoxItem;
+    ListBoxItem6: TListBoxItem;
+    ListBoxItem7: TListBoxItem;
+    ListBoxItem8: TListBoxItem;
+    ListBoxItem9: TListBoxItem;
+    ListBoxItem10: TListBoxItem;
+    ListBoxItem11: TListBoxItem;
+    ListBoxItem12: TListBoxItem;
+    ListBoxItem13: TListBoxItem;
+    ListBoxItem14: TListBoxItem;
     procedure MasterButtonClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure ListBoxItemAddClick(Sender: TObject);
@@ -174,6 +190,7 @@ var
   Footer: TListBoxGroupFooter;
   Item: TListBoxItem;
 begin
+exit;
   fCurrTaskID := TaskId;
   Self.ListBox.BeginUpdate;
   try
